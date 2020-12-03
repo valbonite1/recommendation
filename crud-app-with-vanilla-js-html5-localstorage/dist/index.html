@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - CRUD App  with  Vanilla JS &amp; HTML5 LocalStorage</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<link rel="icon" href="https://res.cloudinary.com/ethelbert007/image/upload/v1511873622/logo_geyrq5.jpg">
+ 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <title>Saal Products</title>
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!-- This is the main navbar section -->
+<nav>
+  <div class="nav-wrapper z-depth-5 red darken-2">
+    <!-- this handles the sliding bars -->
+    <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="fa fa-bars fa-2x"></i></a>
+      <ul id="slide-out" class="side-nav">
+        <li><a href="#"><i class="fa fa-television"> </i> Dashboard </a> </li>
+        <li><a href="#" data-toggle="modal" data-target="#addNewProductModal" class="addNewProduct" ><i class="fa fa-plus-circle"></i> Add New Product </a></li>
+        <li><a href="#aboutUsModal" class="modal-trigger" data-target="#aboutUsModal"><i class="fa fa-question-circle-o"></i> About Us </a></li>
+      </ul>
+    <!-- this handles the full-width navbar -->
+    <a href="#" class="brand-logo center"><img class="imgLogo" src="https://res.cloudinary.com/ethelbert007/image/upload/v1511873622/logo_geyrq5.jpg" alt=""></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down grey lighten-1">
+      <li class=""><a href="#"><i class="fa fa-television"> </i> Dashboard </a> </li>
+      <li><a href="#" data-toggle="modal" data-target="#addNewProductModal" class="addNewProduct"><i class="fa fa-plus-circle"></i> Add New Product </a></li>
+      <li><a href="#aboutUsModal" class="modal-trigger" data-target="#aboutUsModal"><i class="fa fa-question-circle-o"></i> About Us </a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- This is the main body<div> container section -->
+<div class="container-fluid">
+  <!-- firstPart: handles the floating button -->
+  <div class="fixed-action-btn vertical">
+    <a class="btn-floating btn-large red darken-2"> <i class="fa fa-bars fa-4x"></i></a>
+    <ul>
+      <li><a class="btn-floating blue darken-2 modal-trigger" href="#aboutUsModal"><i class="fa fa-question-circle-o"></i></a></li>
+      <li><a class="btn-floating red darken-2"><i class="fa fa-television"></i></a></li>
+      <li><a class="btn-floating green darken-2 addNewProduct" data-toggle="modal" data-target="#addNewProductModal"><i class="fa fa-pencil"></i></a></li>
+    </ul>
+  </div>
+  
+  <!-- 2ndPart: handles the ProductDashboard display -->
+  <div class="mx-auto">
+    <div class="card border-primary">
+      <div class="card-header" id="usernameSpan"><h3 id="h3header">Product Dashboard</h3></div>
+      <div class="card-body text-primary" id="productDashboard">
+        <form>
+          <div class="input-field">
+            <input id="search" type="search" required class="autocomplete" placeholder="Search Product List">
+          </div>
+        </form>
+        <h4 class="card-title" > Current Products</h4>
+        <ul class="list-group" id="productDisplay">
+          <!-- codes  here supplied via JS-->
+        </ul>
+      </div>
+      <button class="btn btn-outline-success btn-sm m-3 addNewProduct" id="addNewProduct" data-toggle="modal" data-target="#addNewProductModal"
+              style="width: 20%">Add New Product</button>
+    </div>
+  </div>
+  <!-- 3rdPart: responds to the main modal call -->
+  <div class="modal fade" id="addNewProductModal" tabindex="-1" role="dialog" aria-labelledby="addNewProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- header for the modal -->
+        <div class="modal-header">
+          <img class="imgLogo" src="https://res.cloudinary.com/ethelbert007/image/upload/v1511873622/logo_geyrq5.jpg"><h4 class="modal-title left" id="addNewProductModalLabel">New Product Form</h4>
+        </div>
+        <!-- body of the modal -->
+        <div class="modal-body">
+          <form class="form-horizontal" role="form" id="modalForm">
+            <div class="form-group">
+              <label for="productName">Product Name</label>
+              <input id="productName" type="text" />
+            </div>
+            <div class="form-group">
+              <label for="productDescription">Product description</label>
+              <textarea id="productDescription" type="text"  style="height: 100px" ></textarea>
+            </div>
+            <div class="form-group mb-4">
+              <label for="productCategory">Select product category</label>
+              <select id="productCategory" class="custom-select">
+                <option value="Business Products">Business Products</option>
+                <option value="Cards">Cards</option>
+                <option value="Calender">Calender</option>
+                <option value="Fine Arts">Fine Arts</option>
+                <option value="Photo Prints">Photo Prints</option>
+                <option value="Poster">Poster</option>
+                <option value="Photo Gifts">Photo Gifts</option>
+                <option value="PhotoBook">PhotoBook</option>
+                <option value="Sample Set">Sample Set</option>
+                <option value="Wall Decors">Wall Decors</option>
+              </select>
+            </div>
+            <div class="modal-footer align-content-center" id="modalFooter">
+              <button type="button" class="btn btn-outline-danger btn-sm m-2" data-dismiss="modal" id="modalClose"><i class="fa fa-close"></i> Close
+              </button>
+              <button type="button" class="btn btn-outline-success btn-sm m-2" id="modalSubmit"><i class="fa fa-save"></i> Add Entry </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4thPart: responds to the About Us modal call -->
+  <div id="aboutUsModal" class="modal bottom-sheet">
+    <div class="modal-content">
+      <span class="h4"><img class="imgLogo" src="https://res.cloudinary.com/ethelbert007/image/upload/v1511873622/logo_geyrq5.jpg" alt="">  About Us</span>
+      <p class="h5">Saal Digital - Ihr Partner für den professionellen Auftritt Werbeprodukte in HighEnd Qualität</p>
+    </div>
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.js"  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script>
+  $(document).ready(function () {
+    $(".button-collapse").sideNav();
+    $("#aboutUsModal").modal();
+    $("input.autocomplete").autocomplete({
+      data:{
+        "Photo Plaques":null, "FineArt Prints":null, "Retro prints": null, "Photo Prints": null, "Mini Reporello": null,
+        "Card":null, "Folded Card(Up Down)":null, "Folded Card(Left Right)":null, "Double Folded Card":null, "Memorial Card":null,
+        "Wall Decors":null, "Alu-Dibond":null, "Gallery Print":null, "Floating Frame":null, "Envelopes":null
+      },
+      limit:7,
+      minLength:1
+    });
+  });
+</script>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
